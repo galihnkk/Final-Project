@@ -25,9 +25,5 @@ Test API https://dummyapi.io/ dan WEB UI https://www.demoblaze.com/
     gradlew cucumber
     ```
 4. Report
-   ```bash
     ![image](https://github.com/user-attachments/assets/bea6fa22-b50f-4837-bcd1-e90048d43c48)
     ![image](https://github.com/user-attachments/assets/290c446d-836e-41ac-a820-51c52461de7f)
-
-
-    ```
