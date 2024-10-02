@@ -25,5 +25,7 @@ Test API https://dummyapi.io/ dan WEB UI https://www.demoblaze.com/
     gradlew cucumber
     ```
 4. Report
-    ![image](https://github.com/user-attachments/assets/bea6fa22-b50f-4837-bcd1-e90048d43c48)
-    ![image](https://github.com/user-attachments/assets/290c446d-836e-41ac-a820-51c52461de7f)
+    ![gradle](https://github.com/user-attachments/assets/782be30b-e633-44e0-976b-93f43ef721e3)
+    ![APITest](https://github.com/user-attachments/assets/b207c3d5-2d8b-4f95-9ea9-f82a148b3fad)
+    ![WEBTest](https://github.com/user-attachments/assets/41c0d752-76a1-40a8-9dd4-8f8c7249b559)
+    ![ALLTEST](https://github.com/user-attachments/assets/79c863ce-adb3-4816-adcb-98553221e356)
