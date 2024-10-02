@@ -25,7 +25,7 @@ public class HomePage {
     By firstProduct = By.xpath("//a[text()='Nexus 6']");
     By itemAddToCartButton = By.xpath("//a[@class='btn btn-success btn-lg']");
     By homepageCartMenu = By.id("cartur");
-    By secondProduct = By.xpath("(//a[normalize-space()='Samsung Galaxy s7'])[1]");
+    By secondProduct = By.xpath("(//a[normalize-space()='Samsung galaxy s6'])[1]");
     By homePageMenu = By.xpath("//a[text()='Home ']");
 
 
@@ -59,23 +59,24 @@ public class HomePage {
     public void userInputPasswordToSignUp(String defaultPassword){
         driver.findElement(signUpUserPassword).sendKeys(defaultPassword);
     }
-    public void userClickLoginButton() {
+    public void userClickLoginButton() throws InterruptedException {
+        Thread.sleep(2000);
         driver.findElement(loginButtoninPopUp).click();
     }
     public void userClickSignUpButton(){
         driver.findElement(signUpButtoninPopUp).click();
     }
     public void usernameIsDisplayedinHomepage() throws InterruptedException {
-        Thread.sleep(15000);
-        assertEquals("Welcome "+"cartel",driver.findElement(welcomeUserInHomepage).getText());
+        Thread.sleep(2000);
+        assertEquals("Welcome "+"galihnkk",driver.findElement(welcomeUserInHomepage).getText());
     }
     public void homepagePopUpMessage(String homepagePopUpMessage) throws InterruptedException {
-        Thread.sleep(15000);
+        Thread.sleep(2000);
         assertEquals(homepagePopUpMessage,driver.switchTo().alert().getText());
         driver.switchTo().alert().accept();
     }
     public void phoneProduct() throws InterruptedException {
-        Thread.sleep(15000);
+        Thread.sleep(2000);
         driver.findElement(firstProduct).click();
     }
     public void addItemToCart(){
@@ -83,7 +84,7 @@ public class HomePage {
     }
     public void clickCartMenu() throws InterruptedException {
         driver.findElement(homepageCartMenu).click();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
     }
     public void addMonitorItemToCart(){
         driver.findElement(secondProduct).click();

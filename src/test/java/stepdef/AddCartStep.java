@@ -35,8 +35,13 @@ public class AddCartStep {
     }
 
     @Then("validate item is added in cart menu")
-    public void validateItemIsAddedInCartMenu() {
+    public void validateItemIsAddedInCartMenu() throws InterruptedException {
         cartPage.validateItemIsInCart();
+    }
+
+    @Then("clear item from cart {string}")
+    public void clearItemFromCart(String item) throws InterruptedException {
+        cartPage.deleteItemFromCart(item);
     }
 
     @When("user delete an item from cart")
@@ -54,12 +59,12 @@ public class AddCartStep {
     }
 
     @Then("deleted item will disappeared from cart item list")
-    public void deletedItemWillDisappearedFromCartItemList() {
+    public void deletedItemWillDisappearedFromCartItemList() throws InterruptedException {
         cartPage.validateCartDoesNotContainLastAddedItem();
     }
 
     @Then("validate both items were added in cart menu")
-    public void validateBothItemsWereAddedInCartMenu() {
+    public void validateBothItemsWereAddedInCartMenu() throws InterruptedException {
         cartPage.validateBothItemAreInCart();
     }
 

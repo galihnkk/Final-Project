@@ -39,7 +39,7 @@ public class LoginStep {
     }
 
     @And("user click login button")
-    public void userClickLoginButton(){
+    public void userClickLoginButton() throws InterruptedException {
         homePage.userClickLoginButton();
     }
 
@@ -50,6 +50,7 @@ public class LoginStep {
 
     @Then("validate pop up menu displayed {string}")
     public void validatePopUpMenuDisplayed(String homepagePopUpMessage) throws InterruptedException {
+        Thread.sleep(2000);
         homePage.homepagePopUpMessage(homepagePopUpMessage);
     }
 }

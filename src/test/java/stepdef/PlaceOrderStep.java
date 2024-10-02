@@ -67,7 +67,7 @@ public class PlaceOrderStep {
     }
 
     @Then("validate thank you pop up is displayed")
-    public void validateThankYouPopUpIsDisplayed() {
+    public void validateThankYouPopUpIsDisplayed() throws InterruptedException {
         cartPage.validateThankYouPopUp();
     }
 }

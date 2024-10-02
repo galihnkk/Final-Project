@@ -12,6 +12,7 @@ Feature: Add to cart
     Then validate pop up menu displayed "Product added."
     When user click cart menu
     Then validate item is added in cart menu
+    Then clear item from cart "1"
 
   @web
   Scenario: Add multiple items to cart
@@ -29,6 +30,7 @@ Feature: Add to cart
     Then validate pop up menu displayed "Product added."
     When user click cart menu
     Then validate both items were added in cart menu
+    Then clear item from cart "2"
 
   @web
   Scenario: Add multiple items to cart then delete 1 item
@@ -46,5 +48,6 @@ Feature: Add to cart
     Then validate pop up menu displayed "Product added."
     When user click cart menu
     Then validate both items were added in cart menu
-    When user delete one item from cart
+    Then clear item from cart "1"
     Then deleted item will disappeared from cart item list
+    Then clear item from cart "1"

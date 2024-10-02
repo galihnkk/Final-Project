@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static helper.Utility.driver;
 import static org.junit.Assert.*;
 
@@ -26,18 +26,28 @@ public class CartPage {
     By totalPriceDisplayed = By.id("totalp");
 
 
-    public void validateItemIsInCart() {
+    public void validateItemIsInCart() throws InterruptedException {
+        Thread.sleep(2000);
         String cartItemList = driver.findElement(cartTableList).getText();
-        String expectedItem1 = "Nokia lumia 1520";
+        String expectedItem1 = "Nexus 6";
         assertTrue(cartItemList.contains(expectedItem1));
     }
 
-    public void validateBothItemAreInCart() {
-        String driverItemList = driver.findElement(cartTableList).getText();
-        String expectedItem1 = "Nokia lumia 1520";
-        String expectedItem2 = "Sony vaio i7";
-        assertTrue(driverItemList.contains(expectedItem1));
-        assertTrue(driverItemList.contains(expectedItem2));
+    public void deleteItemFromCart(String item) throws InterruptedException {
+        int items = Integer.parseInt(item);
+        for (int i = 1; i <= items; i++) {
+            driver.findElement(By.xpath("(//*[text()='Delete'])[1]")).click();
+            Thread.sleep(2000);
+        }
+        Thread.sleep(2000);
+    }
+
+    public void validateBothItemAreInCart() throws InterruptedException {
+        Thread.sleep(2000);
+        WebElement tbody = driver.findElement(By.xpath("//tbody"));
+        List<WebElement> childElements = tbody.findElements(By.xpath("./*"));
+        int jumlahChild = childElements.size();
+        assertThat(jumlahChild).isEqualTo(2);
     }
 
     public void setDeleteButtonLastAddedItem() throws InterruptedException {
@@ -45,10 +55,12 @@ public class CartPage {
         Thread.sleep(2000);
     }
 
-    public void validateCartDoesNotContainLastAddedItem() {
-        String driverItemList = driver.findElement(cartTableList).getText();
-        String expectedItem2 = "Nokia lumia 1520";
-        assertFalse(driverItemList.contains(expectedItem2));
+    public void validateCartDoesNotContainLastAddedItem() throws InterruptedException {
+        Thread.sleep(2000);
+        WebElement tbody = driver.findElement(By.xpath("//tbody"));
+        List<WebElement> childElements = tbody.findElements(By.xpath("./*"));
+        int jumlahChild = childElements.size();
+        assertThat(jumlahChild).isEqualTo(1);
     }
 
     public void validateTotalPriceInCart() {
@@ -56,7 +68,7 @@ public class CartPage {
         Integer totalPrice = null;
         for (WebElement row : itemRows) {
             String itemPrices = row.findElement(By.xpath("./td[3]")).getText();
-            Integer integerItemPrice = Integer.valueOf(itemPrices);
+            int integerItemPrice = Integer.parseInt(itemPrices);
             if (totalPrice == null) {
                 totalPrice = integerItemPrice;
             } else {
@@ -70,31 +82,41 @@ public class CartPage {
     public void clickPlaceOrderButton() {
         driver.findElement(placeOrderButton).click();
     }
-    public void validatePlaceOrderPopUpIsDisplayed(){
+
+    public void validatePlaceOrderPopUpIsDisplayed() {
         driver.findElement(placeOrderPopUp).isDisplayed();
     }
-    public void enterNameInOrderPopUp(String orderName){
+
+    public void enterNameInOrderPopUp(String orderName) {
         driver.findElement(orderNameField).sendKeys(orderName);
     }
-    public void enterCountryInOrderPopUp(String orderCountry){
+
+    public void enterCountryInOrderPopUp(String orderCountry) {
         driver.findElement(orderCountryField).sendKeys(orderCountry);
     }
-    public void enterCreditCardInOrderPopUp(String orderCC){
+
+    public void enterCreditCardInOrderPopUp(String orderCC) {
         driver.findElement(orderCreditCardField).sendKeys(orderCC);
     }
-    public void enterCityInOrderPopUp(String orderCity){
+
+    public void enterCityInOrderPopUp(String orderCity) {
         driver.findElement(orderCityField).sendKeys(orderCity);
     }
-    public void enterMonthInOrderPopUp(String orderMonth){
+
+    public void enterMonthInOrderPopUp(String orderMonth) {
         driver.findElement(orderMonthField).sendKeys(orderMonth);
     }
-    public void enterYearInOrderPopUp(String orderYear){
+
+    public void enterYearInOrderPopUp(String orderYear) {
         driver.findElement(orderYearField).sendKeys(orderYear);
     }
+
     public void clickPurchaseButton() {
         driver.findElement(purchaseButtonInPlaceOrderPopUp).click();
     }
-    public void validateThankYouPopUp(){
+
+    public void validateThankYouPopUp() throws InterruptedException {
+        Thread.sleep(200);
         String findThankYouPopUp = driver.findElement(thankYouPopUp).getText();
         assertTrue(findThankYouPopUp.contains("Thank you for your purchase!"));
     }

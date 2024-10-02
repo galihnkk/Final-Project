@@ -4,7 +4,7 @@ Feature: Place Order in Cart
   Scenario: Place order with complete customer data
     Given user is in homepage
     And user click login menu
-    And user input email in login menu "galih"
+    And user input email in login menu "galihnkk"
     And user input password in login menu "312"
     And user click login button
     And user click first item in homepage
@@ -48,8 +48,8 @@ Feature: Place Order in Cart
   Scenario: Place order with incomplete customer data (name only)
     Given user is in homepage
     And user click login menu
-    And user input email in login menu "bumbumshakalakabumbum"
-    And user input password in login menu "3122223"
+    And user input email in login menu "galihnkk"
+    And user input password in login menu "312"
     And user click login button
     And user click first item in homepage
     And user click add to cart button
