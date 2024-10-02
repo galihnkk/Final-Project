@@ -20,8 +20,8 @@ public class AddCartStep {
     }
 
     @When("user click second item in homepage")
-    public void userClickSecondItemInHomepage() {
-        homePage.addMonitorItemToCart();
+    public void userClickSecondItemInHomepage() throws InterruptedException {
+        homePage.phoneProduct2();
     }
 
     @And("user click add to cart button")

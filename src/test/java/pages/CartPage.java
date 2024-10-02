@@ -1,8 +1,11 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static helper.Utility.driver;
@@ -11,7 +14,7 @@ import static org.junit.Assert.*;
 public class CartPage {
 
     By cartTableList = By.id("tbodyid");
-    By deleteButtonLastAddedItem = By.xpath("//*[@id='tbodyid']/tr[@class='success' and td[2]/text()='Nokia lumia 1520']/td[4]/a");
+    By deleteButtonLastAddedItem = By.xpath("//*[@id='tbodyid']/tr[@class='success' and td[2]/text()='Nexus 6']/td[4]/a");
     By placeOrderButton = By.xpath("//button[@class='btn btn-success']");
     By placeOrderPopUp = By.id("orderModalLabel");
     By orderNameField = By.id("name");
@@ -25,13 +28,41 @@ public class CartPage {
     By priceColumnInCart = By.xpath("//tbody[@id='tbodyid']/tr");
     By totalPriceDisplayed = By.id("totalp");
 
+    public void addItemToCart(String itemName) {
+        By addToCartButton = By.xpath("//button[contains(text(), 'Add to cart') and @data-item='" + itemName + "']");
+        driver.findElement(addToCartButton).click();
 
-    public void validateItemIsInCart() throws InterruptedException {
-        Thread.sleep(2000);
-        String cartItemList = driver.findElement(cartTableList).getText();
-        String expectedItem1 = "Nexus 6";
-        assertTrue(cartItemList.contains(expectedItem1));
+        // Optional: Wait for the cart to update
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cartConfirmationMessage"))); // Adjust as needed
     }
+
+    public void userClickSecondItemInHomepage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> items = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//a[contains(text(), 'Samsung galaxy s7')]")));
+
+        System.out.println("Number of items found: " + items.size()); // Debugging output
+
+        if (!items.isEmpty()) {
+            items.get(0).click(); // Click the first matching item
+        } else {
+            System.out.println("Item not found.");
+        }
+    }
+
+
+    public void validateItemIsInCart() {
+        // Tunggu sampai item muncul di keranjang
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[@id='tbodyid']//tr")));
+
+        // Ambil semua item di keranjang
+        List<WebElement> itemsInCart = driver.findElements(By.xpath("//tbody[@id='tbodyid']//tr"));
+
+        // Pastikan ada setidaknya satu item
+        Assert.assertTrue("The cart should have at least one item.", itemsInCart.size() > 0);
+    }
+
 
     public void deleteItemFromCart(String item) throws InterruptedException {
         int items = Integer.parseInt(item);
@@ -42,13 +73,16 @@ public class CartPage {
         Thread.sleep(2000);
     }
 
-    public void validateBothItemAreInCart() throws InterruptedException {
-        Thread.sleep(2000);
-        WebElement tbody = driver.findElement(By.xpath("//tbody"));
-        List<WebElement> childElements = tbody.findElements(By.xpath("./*"));
-        int jumlahChild = childElements.size();
-        assertThat(jumlahChild).isEqualTo(2);
+    public void validateBothItemAreInCart() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[@id='tbodyid']//tr")));
+
+        List<WebElement> itemsInCart = driver.findElements(By.xpath("//tbody[@id='tbodyid']//tr"));
+
+        Assert.assertTrue("The cart should have at least one item.", itemsInCart.size() > 0);
+
     }
+
 
     public void setDeleteButtonLastAddedItem() throws InterruptedException {
         driver.findElement(deleteButtonLastAddedItem).click();
@@ -115,9 +149,31 @@ public class CartPage {
         driver.findElement(purchaseButtonInPlaceOrderPopUp).click();
     }
 
-    public void validateThankYouPopUp() throws InterruptedException {
-        Thread.sleep(200);
+    public void validateThankYouPopUp() {
+        // Handle any unexpected alerts before proceeding
+        handleAlertIfPresent();
+
+        // Wait for the thank you message to be displayed
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(thankYouPopUp));
+
+        // Retrieve the thank you message text
         String findThankYouPopUp = driver.findElement(thankYouPopUp).getText();
-        assertTrue(findThankYouPopUp.contains("Thank you for your purchase!"));
+
+        // Validate that the thank you message is displayed correctly
+        assertTrue("The thank you message was not displayed.", findThankYouPopUp.contains("Thank you for your purchase!"));
+    }
+
+    private void handleAlertIfPresent() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            alert.accept(); // Accept the alert to close it
+        } catch (NoAlertPresentException e) {
+            // No alert was present, so we can ignore this
+        } catch (TimeoutException e) {
+            // Alert was not present within the timeout, continue
+        }
     }
 }

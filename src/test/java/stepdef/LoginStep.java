@@ -50,7 +50,7 @@ public class LoginStep {
 
     @Then("validate pop up menu displayed {string}")
     public void validatePopUpMenuDisplayed(String homepagePopUpMessage) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         homePage.homepagePopUpMessage(homepagePopUpMessage);
     }
 }

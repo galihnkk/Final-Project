@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HomePage {
     static Faker faker = new Faker();
     String randomName = faker.name().firstName();
-    String randomEmail = randomName + "@fionafinalprojects.jayjay";
+    String randomEmail = randomName + "galihnkk";
 
     By loginMenu = By.id("login2");
     By signUpMenu = By.id("signin2");
@@ -23,14 +23,14 @@ public class HomePage {
     By signUpButtoninPopUp = By.xpath("//button[text()='Sign up']");
     By welcomeUserInHomepage = By.id("nameofuser");
     By firstProduct = By.xpath("//a[text()='Nexus 6']");
-    By itemAddToCartButton = By.xpath("//a[@class='btn btn-success btn-lg']");
+    By itemAddToCartButton = By.xpath("//a[contains(@class, 'btn-success')]");
     By homepageCartMenu = By.id("cartur");
-    By secondProduct = By.xpath("(//a[normalize-space()='Samsung galaxy s6'])[1]");
+    By secondProduct = By.xpath("//a[text()='Samsung galaxy s7']");
     By homePageMenu = By.xpath("//a[text()='Home ']");
 
 
     public void userGoToHomePage(){
-        driver.get("https://www.demoblaze.com");
+        driver.get("https://www.demoblaze.com/index.html");
     }
     public void userClickLoginMenu(){
         driver.findElement(loginMenu).click();
@@ -79,15 +79,18 @@ public class HomePage {
         Thread.sleep(2000);
         driver.findElement(firstProduct).click();
     }
+
+    public void phoneProduct2() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(secondProduct).click();
+    }
+
     public void addItemToCart(){
         driver.findElement(itemAddToCartButton).click();
     }
     public void clickCartMenu() throws InterruptedException {
         driver.findElement(homepageCartMenu).click();
         Thread.sleep(1000);
-    }
-    public void addMonitorItemToCart(){
-        driver.findElement(secondProduct).click();
     }
     public void goToHomePageMenu() {
         driver.findElement(homePageMenu).click();

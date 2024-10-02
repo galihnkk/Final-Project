@@ -22,7 +22,7 @@ public class Hooks {
     }
     @BeforeEach
     public void beforeEach() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
 
     @After
