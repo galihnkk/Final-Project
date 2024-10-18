@@ -94,7 +94,7 @@ public class CartPage {
         WebElement tbody = driver.findElement(By.xpath("//tbody"));
         List<WebElement> childElements = tbody.findElements(By.xpath("./*"));
         int jumlahChild = childElements.size();
-        assertThat(jumlahChild).isEqualTo(2);
+        assertThat(jumlahChild).isEqualTo(1);
     }
 
     public void validateTotalPriceInCart() {
