@@ -1,5 +1,7 @@
 # Final Project
 
+API AND WEB UI AUTOMATION
+
 Test API https://dummyapi.io/ dan WEB UI https://www.demoblaze.com/
 
 ## Instalasi
