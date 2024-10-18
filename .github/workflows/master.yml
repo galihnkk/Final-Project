@@ -33,19 +33,29 @@ jobs:
     - name: Build with Gradle
       run: chmod +x gradlew
       
-    - name: run all cucumber selenium test case
+    - name: Run API Tests
+      run: ./gradlew apiTest
+
+    - name: Run Web Tests
+      run: ./gradlew webTest
+
+    - name: Run Cucumber Tests
       run: ./gradlew cucumber
 
-    - name: Archive test result
+    - name: Archive test results
       uses: actions/upload-artifact@v4.3.0
       if: always()
       with:
-       name: cucumber report
-       path: report
-      
+        name: cucumber reports
+        path: |
+          reports/CucumberAPIReport.html
+          reports/CucumberWEBReport.html
+          reports/Cucumber.html
+          reports/Cucumber.json
+
     - name: Deploy report to Github Pages
       if: always()
       uses: peaceiris/actions-gh-pages@v3.9.3
       with:
-       PERSONAL_TOKEN: ${{ secrets.DEPLOY_SELENIUM }}
-       PUBLISH_DIR: report
+        PERSONAL_TOKEN: ${{ secrets.DEPLOY_SELENIUM }}
+        PUBLISH_DIR: report
